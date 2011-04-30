@@ -1,4 +1,3 @@
-<h1>Listing contracts</h1>
 
 <table>
   <tr>
@@ -21,19 +20,27 @@
     <th>Signed by</th>
 	-->
     <th>Fecha res.</th>
+	<!--
     <th></th>
     <th></th>
     <th></th>
+	-->
   </tr>
 
 <% @contracts.each do |contract| %>
-  <tr>
-    <td><%= contract.title %></td>
+  
+ <tr class="<%=cycle('odd','even') %>">
+    <td><%= link_to contract.title, contract %></td>
 	<!--
     <td><%= contract.description %></td>
 	-->
     <td><%= contract.contract_type %></td>
-    <td><%= contract.procedure %></td>
+    <td>
+<a href="/Contracts/BusquedaPorProcedimiento?procedimiento=<%= contract.procedure %>">
+	<%= contract.procedure %>
+</a>
+	
+	</td>
 	<!--
     <td><%= contract.budget_announced %></td>
 	-->
@@ -41,19 +48,27 @@
 	<!--
     <td><%= contract.idweb %></td>
 	-->
-    <td><%= contract.company_name %></td>
+    <td>
+		<a href="/Contracts/BusquedaPorEmpresa?empresa=<%= contract.company_name %>">
+			<%= contract.company_name %>
+		</a>
+	</td>
     <td><%= contract.department %></td>
 	<!--
     <td><%= contract.signed_by %></td>
 	-->
     <td><%= contract.resolution_date %></td>
+	<!--
     <td><%= link_to 'Show', contract %></td>
     <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
     <td><%= link_to 'Destroy', contract, :confirm => 'Are you sure?', :method => :delete %></td>
+	-->
   </tr>
 <% end %>
 </table>
 
 <br />
 
+<!--
 <%= link_to 'New Contract', new_contract_path %>
+-->

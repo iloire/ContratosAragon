@@ -15,6 +15,30 @@ end
 
 
 
+def getPBase(doc)
+  node=doc.at("//label[text()*='Presupuesto base de licitación:']")
+  if (!node.nil?)
+      node.parent.parent.children[3].children[1].inner_text
+  else
+      puts "ERROR: node null getPBase"
+      0
+  end
+  
+  rescue=>e
+    puts "error parseando getPBase #{e.message}"
+end
+
+def getPAdj(doc)
+  node=doc.at("//label[text()*='Importe de adjudicación:']")
+  if (!node.nil?)
+    node.parent.parent.children[3].children[1].inner_text
+  else
+      puts "ERROR: node null getPAdj"
+      0
+  end
+  rescue=>e
+    puts "error parseando getPAdj #{e.message}"
+end
 
 
 
@@ -58,19 +82,21 @@ namespace :db do
          
          tipocontrato=doc.at("//label[text()*='Tipo de contrato:']").parent.parent.children[3].children[1].inner_text
          organismo=doc.at("//label[text()*='Organismo:']").parent.parent.children[3].children[1].inner_text        
-        
+         firmado= (doc/"/html/body/div[4]/div[2]/div[2]/div[1]/ul/li[1]/span[2]").inner_html
+         fechapublicacionanuncio=doc.at("//label[text()*='Fecha de Publicación del anuncio:']").parent.parent.children[3].children[1].inner_text
+           
          Contract.create!(    
           :title => titulo, 
-          :description => "Contrato construcción torre agua", 
+          :description => "desc", 
           :contract_type=> tipocontrato, 
           :procedure=> proced, 
-          :budget_announced=> "20.000", 
-          :budget_adjudicated=> "30.000", 
-          :idweb =>nil, 
+          :budget_announced=> getPBase(doc), 
+          :budget_adjudicated=> getPAdj(doc), 
+          :idweb => id=File.basename(f)  , 
           :company_name=> empresa, 
           :department=> organismo, 
-          :signed_by=> "Juan Sierra", 
-          :resolution_date=> "12/1/2002")
+          :signed_by=> firmado, 
+          :resolution_date=> fechapublicacionanuncio)
     }
       
   end

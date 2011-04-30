@@ -20,6 +20,27 @@ class ContractsController < ApplicationController
       format.xml  { render :xml => @contract }
     end
   end
+  
+  # Search by procedure
+  def searchByProcedure
+     @contracts = Contract.find :all, :conditions => [ " procedure like ? ", params[:procedimiento ]]
+
+     respond_to do |format|
+       format.html { render :template => "contracts/index.html.erb" }
+       #format.html contracts/index.html.erb
+       format.xml  { render :xml => @contracts }
+     end
+   end
+  
+   def searchByCompanyName
+      @contracts = Contract.find :all, :conditions => [ " company_name like ? ", params[:empresa ]]
+
+      respond_to do |format|
+        format.html { render :template => "contracts/index.html.erb" }
+        #format.html contracts/index.html.erb
+        format.xml  { render :xml => @contracts }
+      end
+    end
 
   # GET /contracts/new
   # GET /contracts/new.xml
