@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @contract.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @contract.description %>
+</p>
+
+<p>
+  <b>Contract type:</b>
+  <%= @contract.contract_type %>
+</p>
+
+<p>
+  <b>Procedure:</b>
+  <%= @contract.procedure %>
+</p>
+
+<p>
+  <b>Budget announced:</b>
+  <%= @contract.budget_announced %>
+</p>
+
+<p>
+  <b>Budget adjudicated:</b>
+  <%= @contract.budget_adjudicated %>
+</p>
+
+<p>
+  <b>Idweb:</b>
+  <%= @contract.idweb %>
+</p>
+
+<p>
+  <b>Company name:</b>
+  <%= @contract.company_name %>
+</p>
+
+<p>
+  <b>Department:</b>
+  <%= @contract.department %>
+</p>
+
+<p>
+  <b>Signed by:</b>
+  <%= @contract.signed_by %>
+</p>
+
+<p>
+  <b>Resolution date:</b>
+  <%= @contract.resolution_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>

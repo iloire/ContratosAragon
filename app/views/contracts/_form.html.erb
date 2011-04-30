@@ -1,0 +1,61 @@
+<%= form_for(@contract) do |f| %>
+  <% if @contract.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+      <% @contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :contract_type %><br />
+    <%= f.text_field :contract_type %>
+  </div>
+  <div class="field">
+    <%= f.label :procedure %><br />
+    <%= f.text_field :procedure %>
+  </div>
+  <div class="field">
+    <%= f.label :budget_announced %><br />
+    <%= f.text_field :budget_announced %>
+  </div>
+  <div class="field">
+    <%= f.label :budget_adjudicated %><br />
+    <%= f.text_field :budget_adjudicated %>
+  </div>
+  <div class="field">
+    <%= f.label :idweb %><br />
+    <%= f.text_field :idweb %>
+  </div>
+  <div class="field">
+    <%= f.label :company_name %><br />
+    <%= f.text_field :company_name %>
+  </div>
+  <div class="field">
+    <%= f.label :department %><br />
+    <%= f.text_field :department %>
+  </div>
+  <div class="field">
+    <%= f.label :signed_by %><br />
+    <%= f.text_field :signed_by %>
+  </div>
+  <div class="field">
+    <%= f.label :resolution_date %><br />
+    <%= f.text_field :resolution_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

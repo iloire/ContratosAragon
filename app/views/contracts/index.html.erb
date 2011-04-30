@@ -1,0 +1,43 @@
+<h1>Listing contracts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Contract type</th>
+    <th>Procedure</th>
+    <th>Budget announced</th>
+    <th>Budget adjudicated</th>
+    <th>Idweb</th>
+    <th>Company name</th>
+    <th>Department</th>
+    <th>Signed by</th>
+    <th>Resolution date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contracts.each do |contract| %>
+  <tr>
+    <td><%= contract.title %></td>
+    <td><%= contract.description %></td>
+    <td><%= contract.contract_type %></td>
+    <td><%= contract.procedure %></td>
+    <td><%= contract.budget_announced %></td>
+    <td><%= contract.budget_adjudicated %></td>
+    <td><%= contract.idweb %></td>
+    <td><%= contract.company_name %></td>
+    <td><%= contract.department %></td>
+    <td><%= contract.signed_by %></td>
+    <td><%= contract.resolution_date %></td>
+    <td><%= link_to 'Show', contract %></td>
+    <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
+    <td><%= link_to 'Destroy', contract, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contract', new_contract_path %>
