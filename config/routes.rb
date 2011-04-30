@@ -1,5 +1,6 @@
 ContratosAragon::Application.routes.draw do
   resources :contracts
+  root :to => "contracts#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
