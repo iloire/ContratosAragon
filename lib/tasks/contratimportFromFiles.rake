@@ -48,14 +48,14 @@ namespace :db do
 
     Rake::Task['db:reset'].invoke
       counter=0  
-    dir = "/Users/ivanloire/dev/rails/ContratosPublicos/rawData/original"
+    dir = "/Users/ivanloire/dev/rails/ContratosPublicos/rawData/formalizacion"
     Dir.glob("#{dir}/**/**").each {
       |f| 
       
         counter=counter+1
         
         if counter>100
-          break
+          #break #uncomment to break on 100 records
         end
         
          #puts "contrato nulo, salvamos #{f}"
