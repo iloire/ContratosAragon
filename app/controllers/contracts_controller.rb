@@ -24,6 +24,7 @@ class ContractsController < ApplicationController
   # Search by procedure
   def searchByProcedure
      @contracts = Contract.find :all, :conditions => [ " procedure like ? ", params[:procedimiento ]]
+     @contractsAllCount = @contracts.size #check if we should do this for performance reasons
      @contracts = @contracts.paginate :page => params[:page], :per_page => 50
      respond_to do |format|
        format.html { render :template => "contracts/index.html.erb" }
@@ -34,6 +35,7 @@ class ContractsController < ApplicationController
   
    def searchByCompanyName
       @contracts = Contract.find :all, :conditions => [ " company_name like ? ", params[:empresa ]]
+      @contractsAllCount = @contracts.size #check if we should do this for performance reasons
       @contracts = @contracts.paginate :page => params[:page], :per_page => 50
       respond_to do |format|
         format.html { render :template => "contracts/index.html.erb" }
