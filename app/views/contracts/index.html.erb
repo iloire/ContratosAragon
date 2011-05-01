@@ -36,10 +36,10 @@
 	-->
     <td><%= contract.contract_type %></td>
     <td>
-<a href="/Contracts/BusquedaPorProcedimiento?procedimiento=<%= contract.procedure %>">
-	<%= contract.procedure %>
-</a>
-	
+		<!-- para cambiar por link_to-->
+		<a href="/Contracts/BusquedaPorProcedimiento?procedimiento=<%= contract.procedure %>">
+			<%= contract.procedure %>
+		</a>
 	</td>
 	<!--
     <td><%= contract.budget_announced %></td>
@@ -49,6 +49,7 @@
     <td><%= contract.idweb %></td>
 	-->
     <td>
+			<!-- para cambiar por link_to-->
 		<a href="/Contracts/BusquedaPorEmpresa?empresa=<%= contract.company_name %>">
 			<%= contract.company_name %>
 		</a>
