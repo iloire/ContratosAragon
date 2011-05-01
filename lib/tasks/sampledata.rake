@@ -1,4 +1,4 @@
-
+# encoding: UTF-8
 namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
