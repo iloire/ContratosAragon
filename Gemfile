@@ -30,6 +30,8 @@ gem "will_paginate", "~> 3.0.pre2"
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 
+gem 'taps' #in order to send commands to heroku
+
 group :development, :test do
 #   gem 'webrat'
 	gem 'cucumber'
