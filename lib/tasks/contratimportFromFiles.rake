@@ -13,15 +13,16 @@ def get_file_as_string(filename)
 end
 
 
-def maxlen(str)
-  if (str.size>255)
-    str=str[0,250] + "..."
+def maxlen(str, len)
+  if (str.size>len)
+    str=str[0,len] + "..."
   end
   str
 end
 
 
 debug =false
+maxsize=200
 
 namespace :db do
   desc "Fill database with sample data"
@@ -43,6 +44,7 @@ namespace :db do
         end
                  
          begin                  
+         success=true #record successfully parsed?
          
          fileContent=get_file_as_string(f)
          ic = Iconv.new('UTF-8', 'WINDOWS-1252')
@@ -52,11 +54,11 @@ namespace :db do
 
          #titulo
          titulo=(doc/"/div[2]/fieldset/div[3]/div/div[2]/div").inner_text
-         titulo=maxlen(titulo)
+         titulo=maxlen(titulo,maxsize)
          
          #empresa
          empresa=doc.at("//label[text()*='Contratista:']").parent.parent.children[3].children[1].inner_text
-         empresa=maxlen(empresa)
+         empresa=maxlen(empresa, maxsize)
          
          #procedimiento
          proced=doc.at("//label[text()*='Procedimiento:']").parent.parent.children[3].children[1].inner_text      
@@ -72,26 +74,34 @@ namespace :db do
 
          #tipo contrato
          tipocontrato=doc.at("//label[text()*='Tipo de contrato:']").parent.parent.children[3].children[1].inner_text
-         tipocontrato=maxlen(tipocontrato)
+         tipocontrato=maxlen(tipocontrato,maxsize)
          
          #organismo
          organismo=doc.at("//label[text()*='Organismo:']").parent.parent.children[3].children[1].inner_text        
-         organismo=maxlen(organismo)
+         organismo=maxlen(organismo,maxsize)
          
          #firmado por
          firmado= (doc/"/div[2]/div[2]/div[1]/ul/li[1]/span[2]").inner_html
-         firmado=maxlen(firmado)
+         firmado=maxlen(firmado,maxsize)
 
          #pub
          fechapublicacionanuncio=doc.at("//label[text()*='Fecha de Publicación del anuncio:']").parent.parent.children[3].children[1].inner_text
+         if (fechapublicacionanuncio.size>50)
+           success=false
+         end
+         fechapublicacionanuncio=maxlen(fechapublicacionanuncio,maxsize)
         
          #presupuestos  
-         presupuestoBase=doc.at("//label[text()*='Presupuesto base de licitación']").parent.parent.children[3].children[1].inner_text   
+         presupuestoBase=doc.at("//label[text()*='Presupuesto base de licitación']").parent.parent.children[3].children[1].inner_text            
+         presupuestoBase=maxlen(presupuestoBase,maxsize)
+         
          presupuestoAdj=doc.at("//label[text()*='Importe de adjudicación']").parent.parent.children[3].children[1].inner_text   
+         presupuestoAdj=maxlen(presupuestoAdj,maxsize)
          
          
          Contract.create!(    
           :title => titulo, 
+          :success=> success,
           :description => "desc", 
           :contract_type=> tipocontrato, 
           :procedure=> proced, 
