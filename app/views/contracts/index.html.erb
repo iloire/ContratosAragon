@@ -1,5 +1,6 @@
 
 <%= will_paginate @contracts %>
+<%= @contracts.count %>
 
 <table>
   <tr>
@@ -22,6 +23,7 @@
     <th>Signed by</th>
 	-->
     <th>Fecha res.</th>
+	<th>Original doc</th>
 	<!--
     <th></th>
     <th></th>
@@ -61,6 +63,9 @@
     <td><%= contract.signed_by %></td>
 	-->
     <td><%= contract.resolution_date %></td>
+	<td>
+		<a href="https://servicios.aragon.es/pcon/pcon-public/controlAdjudicacionPublico?accion=ACCION_SELECCIONAR_ADJUDICACION_PUBLICO&iddatoadjudicacion=<%=contract.idweb%>">original</a>
+	</td>
 	<!--
     <td><%= link_to 'Show', contract %></td>
     <td><%= link_to 'Edit', edit_contract_path(contract) %></td>
