@@ -2,7 +2,7 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.xml
   def index
-    #@contracts = Contract.all
+    @contractsAllCount = Contract.all.size #check if we should do this for performance reasons
     @contracts = Contract.paginate :page => params[:page], :per_page => 50
     respond_to do |format|
       format.html # index.html.erb
