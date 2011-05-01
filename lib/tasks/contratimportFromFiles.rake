@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: ISO-8859-1
 require 'hpricot'
 
 #helper methods
@@ -52,67 +52,76 @@ namespace :db do
 
          doc = Hpricot(fileContent)
 
-         #titulo
-         titulo=(doc/"/div[2]/fieldset/div[3]/div/div[2]/div").inner_text
-         titulo=maxlen(titulo,maxsize)
-         
-         #empresa
-         empresa=doc.at("//label[text()*='Contratista:']").parent.parent.children[3].children[1].inner_text
-         empresa=maxlen(empresa, maxsize)
-         
-         #procedimiento
-         proced=doc.at("//label[text()*='Procedimiento:']").parent.parent.children[3].children[1].inner_text      
-         if proced.downcase.include? "abierto"
-           proced="Abierto"
-         elsif proced.downcase.include? "negociado"
-           proced="Negociado"
-         elsif proced.downcase.include? "abreviado"
-           proced="Abreviado"
-         else
-           proced="Otros"
-         end
+         textoAdjudicacion=(doc/"//*[@id=\"label0\"]").inner_text
+         es_provisional=textoAdjudicacion.include? "Anuncio de adjudicación provisional de contrato"
+         es_definitiva=textoAdjudicacion.include? "Anuncio de adjudicación definitiva de contrato"
 
-         #tipo contrato
-         tipocontrato=doc.at("//label[text()*='Tipo de contrato:']").parent.parent.children[3].children[1].inner_text
-         tipocontrato=maxlen(tipocontrato,maxsize)
-         
-         #organismo
-         organismo=doc.at("//label[text()*='Organismo:']").parent.parent.children[3].children[1].inner_text        
-         organismo=maxlen(organismo,maxsize)
-         
-         #firmado por
-         firmado= (doc/"/div[2]/div[2]/div[1]/ul/li[1]/span[2]").inner_html
-         firmado=maxlen(firmado,maxsize)
+         if (es_definitiva)
+           #titulo
+           titulo=(doc/"/div[2]/fieldset/div[3]/div/div[2]/div").inner_text
+           titulo=maxlen(titulo,maxsize)
 
-         #pub
-         fechapublicacionanuncio=doc.at("//label[text()*='Fecha de Publicación del anuncio:']").parent.parent.children[3].children[1].inner_text
-         if (fechapublicacionanuncio.size>50)
-           success=false
-         end
-         fechapublicacionanuncio=maxlen(fechapublicacionanuncio,maxsize)
-        
-         #presupuestos  
-         presupuestoBase=doc.at("//label[text()*='Presupuesto base de licitación']").parent.parent.children[3].children[1].inner_text            
-         presupuestoBase=maxlen(presupuestoBase,maxsize)
-         
-         presupuestoAdj=doc.at("//label[text()*='Importe de adjudicación']").parent.parent.children[3].children[1].inner_text   
-         presupuestoAdj=maxlen(presupuestoAdj,maxsize)
-         
-         
-         Contract.create!(    
-          :title => titulo, 
-          :success=> success,
-          :description => "desc", 
-          :contract_type=> tipocontrato, 
-          :procedure=> proced, 
-          :budget_announced=> presupuestoBase, 
-          :budget_adjudicated=> presupuestoAdj, 
-          :idweb => id=File.basename(f)  , 
-          :company_name=> empresa, 
-          :department=> organismo, 
-          :signed_by=> firmado, 
-          :resolution_date=> fechapublicacionanuncio)
+           #empresa
+           empresa=doc.at("//label[text()*='Contratista:']").parent.parent.children[3].children[1].inner_text
+           empresa=maxlen(empresa, maxsize)
 
+           #procedimiento
+           proced=doc.at("//label[text()*='Procedimiento:']").parent.parent.children[3].children[1].inner_text      
+           if proced.downcase.include? "abierto"
+             proced="Abierto"
+           elsif proced.downcase.include? "negociado"
+             proced="Negociado"
+           elsif proced.downcase.include? "abreviado"
+             proced="Abreviado"
+           else
+             proced="Otros"
+           end
+
+           #tipo contrato
+           tipocontrato=doc.at("//label[text()*='Tipo de contrato:']").parent.parent.children[3].children[1].inner_text
+           tipocontrato=maxlen(tipocontrato,maxsize)
+
+           #organismo
+           organismo=doc.at("//label[text()*='Organismo:']").parent.parent.children[3].children[1].inner_text        
+           organismo=maxlen(organismo,maxsize)
+
+           #firmado por
+           firmado= (doc/"/div[2]/div[2]/div[1]/ul/li[1]/span[2]").inner_html
+           firmado=maxlen(firmado,maxsize)
+
+           #pub
+           fechapublicacionanuncio=doc.at("//label[text()*='Fecha de Publicación del anuncio:']").parent.parent.children[3].children[1].inner_text
+           if (fechapublicacionanuncio.size>50)
+             success=false
+           end
+           fechapublicacionanuncio=maxlen(fechapublicacionanuncio,maxsize)
+
+           #presupuestos  
+           presupuestoBase=doc.at("//label[text()*='Presupuesto base de licitación']").parent.parent.children[3].children[1].inner_text            
+           presupuestoBase=maxlen(presupuestoBase,maxsize)
+
+           presupuestoAdj=doc.at("//label[text()*='Importe de adjudicación']").parent.parent.children[3].children[1].inner_text   
+           presupuestoAdj=maxlen(presupuestoAdj,maxsize)
+
+
+           Contract.create!(    
+           :title => titulo, 
+           :success=> success,
+           :description => "desc", 
+           :contract_type=> tipocontrato, 
+           :procedure=> proced, 
+           :budget_announced=> presupuestoBase, 
+           :budget_adjudicated=> presupuestoAdj, 
+           :idweb => id=File.basename(f)  , 
+           :company_name=> empresa, 
+           :department=> organismo, 
+           :signed_by=> firmado, 
+           :resolution_date=> fechapublicacionanuncio)
+           
+            puts "   definitiva #{id}!"
+        else
+            puts "   provisional #{id}"
+        end    
         rescue =>e
           puts "Error en id: #{id}. Error: #{e}"
           #break
