@@ -1,4 +1,3 @@
-require 'faker'
 require 'hpricot'
 
 
@@ -45,7 +44,7 @@ end
 namespace :db do
   desc "Fill database with sample data"
   task :populateFromFiles => :environment do
-
+    
     Rake::Task['db:reset'].invoke
       counter=0  
     dir = "/Users/ivanloire/dev/rails/ContratosPublicos/rawData/formalizacion"
