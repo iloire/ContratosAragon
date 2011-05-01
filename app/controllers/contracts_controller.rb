@@ -2,8 +2,8 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.xml
   def index
-    @contracts = Contract.all
-
+    #@contracts = Contract.all
+    @contracts = Contract.paginate :page => params[:page], :per_page => 50
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @contracts }
@@ -24,7 +24,7 @@ class ContractsController < ApplicationController
   # Search by procedure
   def searchByProcedure
      @contracts = Contract.find :all, :conditions => [ " procedure like ? ", params[:procedimiento ]]
-
+     @contracts = @contracts.paginate :page => params[:page], :per_page => 50
      respond_to do |format|
        format.html { render :template => "contracts/index.html.erb" }
        #format.html contracts/index.html.erb
@@ -34,7 +34,7 @@ class ContractsController < ApplicationController
   
    def searchByCompanyName
       @contracts = Contract.find :all, :conditions => [ " company_name like ? ", params[:empresa ]]
-
+      @contracts = @contracts.paginate :page => params[:page], :per_page => 50
       respond_to do |format|
         format.html { render :template => "contracts/index.html.erb" }
         #format.html contracts/index.html.erb
