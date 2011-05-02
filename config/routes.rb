@@ -2,7 +2,8 @@ ContratosAragon::Application.routes.draw do
   resources :contracts
 
   match '/Contracts/BusquedaPorProcedimiento', :to => 'contracts#searchByProcedure'
-    match '/Contracts/BusquedaPorEmpresa', :to => 'contracts#searchByCompanyName'
+  match '/Contracts/BusquedaPorEmpresa', :to => 'contracts#searchByCompanyName'
+  match '/Contracts/BusquedaPorOrganismo', :to => 'contracts#searchByDepartment'
 
   root :to => "contracts#index"
 
