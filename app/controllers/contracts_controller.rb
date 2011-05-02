@@ -1,10 +1,11 @@
 class ContractsController < ApplicationController
 
-  caches_action :show, :cache_path => Proc.new { |c| c.params }
-  caches_action :searchByProcedure, :cache_path => Proc.new { |c| c.params }
-  caches_action :searchByCompanyName, :cache_path => Proc.new { |c| c.params }
-  caches_action :searchByDepartment, :cache_path => Proc.new { |c| c.params }
-  caches_action :searchBySignedBy, :cache_path => Proc.new { |c| c.params }
+  caches_action :index, :cache_path => Proc.new { |c| c.params },  :expires_in => 10.minute
+  caches_action :show, :cache_path => Proc.new { |c| c.params },  :expires_in => 10.minute
+  caches_action :searchByProcedure, :cache_path => Proc.new { |c| c.params } ,  :expires_in => 10.minute
+  caches_action :searchByCompanyName, :cache_path => Proc.new { |c| c.params },  :expires_in => 10.minute
+  caches_action :searchByDepartment, :cache_path => Proc.new { |c| c.params },  :expires_in => 10.minute
+  caches_action :searchBySignedBy, :cache_path => Proc.new { |c| c.params },  :expires_in => 10.minute
   
 
   # GET /contracts
