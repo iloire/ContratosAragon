@@ -43,6 +43,17 @@ class ContractsController < ApplicationController
         format.xml  { render :xml => @contracts }
       end
     end
+    
+    def searchByDepartment
+        @contracts = Contract.find :all, :conditions => [ " department like ? ", "%"+ params[:organismo ] + "%"]
+        @contractsAllCount = @contracts.size #check if we should do this for performance reasons
+        @contracts = @contracts.paginate :page => params[:page], :per_page => 50
+        respond_to do |format|
+          format.html { render :template => "contracts/index.html.erb" }
+          #format.html contracts/index.html.erb
+          format.xml  { render :xml => @contracts }
+        end
+      end
 
   # GET /contracts/new
   # GET /contracts/new.xml
