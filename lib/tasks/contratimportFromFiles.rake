@@ -47,7 +47,8 @@ namespace :db do
          success=true #record successfully parsed?
          
          fileContent=get_file_as_string(f)
-         ic = Iconv.new('UTF-8', 'WINDOWS-1252')
+         #ic = Iconv.new('UTF-8', 'WINDOWS-1252')
+         ic = Iconv.new('UTF-8', 'ISO-8859-1')
          fileContent = ic.iconv(fileContent + ' ')[0..-2]  
 
          doc = Hpricot(fileContent)
