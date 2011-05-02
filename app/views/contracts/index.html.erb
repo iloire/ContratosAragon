@@ -43,10 +43,7 @@
 			<%= contract.procedure %>
 		</a>
 	</td>
-	<!--
     <td><%= contract.budget_announced %></td>
-	-->
-    <td><%= contract.budget_adjudicated %></td>
 	<!--
     <td><%= contract.idweb %></td>
 	-->
@@ -71,7 +68,8 @@
 	-->
     <td><%= contract.resolution_date %></td>
 	<td>
-		<a href="https://servicios.aragon.es/pcon/pcon-public/controlAdjudicacionPublico?accion=ACCION_SELECCIONAR_ADJUDICACION_PUBLICO&iddatoadjudicacion=<%=contract.idweb%>">original</a>
+		<a href="https://servicios.aragon.es/pcon/pcon-public/controlAdjudicacionPublico?accion=ACCION_SELECCIONAR_ADJUDICACION_PUBLICO&iddatoadjudicacion=<%=contract.idweb%>">
+		<%= contract.idweb %></a>
 	</td>
 	<!--
     <td><%= link_to 'Show', contract %></td>
