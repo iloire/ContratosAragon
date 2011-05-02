@@ -30,7 +30,7 @@ namespace :db do
     
     Rake::Task['db:reset'].invoke
       counter=0  
-    dir = "/Users/ivanloire/dev/rails/ContratosPublicos/rawDataSmall/formalizacion"
+    dir = "/Users/ivanloire/dev/rails/ContratosPublicos/rawDataPreParsed"
     Dir.glob("#{dir}/**/**").each {
       |f|       
         id=File.basename(f).rjust(6,'0')   
@@ -46,12 +46,15 @@ namespace :db do
          success=true #record successfully parsed?
          
          fileContent=get_file_as_string(f)
+         #puts fileContent
+         #break
          #ic = Iconv.new('UTF-8', 'WINDOWS-1252')
-         ic = Iconv.new('UTF-8', 'ISO-8859-1')
-         fileContent = ic.iconv(fileContent + ' ')[0..-2]  
+         #ic = Iconv.new('UTF-8', 'ISO-8859-1')
+         #fileContent = ic.iconv(fileContent + ' ')[0..-2]  
 
-         ic=Iconv.new('utf-8', 'utf-8')
-         fileContent = ic.iconv(fileContent + ' ')[0..-2]  
+         #as read somewhere, to make sure there is not invalid utf chars in the string
+         #ic=Iconv.new('utf-8', 'utf-8')
+         #fileContent = ic.iconv(fileContent + ' ')[0..-2]  
 
          #just for ruby 1.9
 		     #fileContent=fileContent.encode("UTF-8", undef: :replace, replace: "??") 
@@ -61,6 +64,8 @@ namespace :db do
          textoAdjudicacion=(doc/"//*[@id=\"label0\"]").inner_text
          es_provisional=textoAdjudicacion.include? "Anuncio de adjudicación provisional de contrato"
          es_definitiva=textoAdjudicacion.include? "Anuncio de adjudicación definitiva de contrato"
+         #puts textoAdjudicacion
+         #break
 
          if (es_definitiva)
            #titulo
