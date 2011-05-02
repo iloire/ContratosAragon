@@ -4,7 +4,8 @@ ContratosAragon::Application.routes.draw do
   match '/Contracts/BusquedaPorProcedimiento', :to => 'contracts#searchByProcedure'
   match '/Contracts/BusquedaPorEmpresa', :to => 'contracts#searchByCompanyName'
   match '/Contracts/BusquedaPorOrganismo', :to => 'contracts#searchByDepartment'
-
+  match '/Contracts/BusquedaPorContratante', :to => 'contracts#searchBySignedBy'
+  
   root :to => "contracts#index"
 
   # The priority is based upon order of creation:

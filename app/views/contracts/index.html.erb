@@ -14,9 +14,7 @@
     <th>Budget announced</th>
 	-->
     <th>EUR</th>
-	<!--
-    <th>Id</th>
-	-->
+    <th>Contrante</th>
     <th>Empresa</th>
     <th>Organismo</th>
 	<!--
@@ -52,16 +50,21 @@
 	<!--
     <td><%= contract.idweb %></td>
 	-->
+	<td>
+		<a href="/Contracts/BusquedaPorContratante?contratante=<%= contract.signed_by %>">
+			<%= contract.signed_by %>
+		</a>
+	</td>
     <td>
-			<!-- para cambiar por link_to-->
+		<!-- para cambiar por link_to-->
 		<a href="/Contracts/BusquedaPorEmpresa?empresa=<%= contract.company_name %>">
 			<%= contract.company_name %>
 		</a>
 	</td>
     <td>
-			<a href="/Contracts/BusquedaPorOrganismo?organismo=<%= contract.department %>">
-				<%= contract.department %>
-			</a>
+		<a href="/Contracts/BusquedaPorOrganismo?organismo=<%= contract.department %>">
+			<%= contract.department %>
+		</a>
     </td>
 	<!--
     <td><%= contract.signed_by %></td>
