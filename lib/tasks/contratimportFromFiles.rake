@@ -40,7 +40,6 @@ namespace :db do
           if counter>3
             break #uncomment to break on 100 records
           end        
-
         end
                  
          begin                  
@@ -51,6 +50,12 @@ namespace :db do
          ic = Iconv.new('UTF-8', 'ISO-8859-1')
          fileContent = ic.iconv(fileContent + ' ')[0..-2]  
 
+         ic=Iconv.new('utf-8', 'utf-8')
+         fileContent = ic.iconv(fileContent + ' ')[0..-2]  
+
+         #just for ruby 1.9
+		     #fileContent=fileContent.encode("UTF-8", undef: :replace, replace: "??") 
+		     
          doc = Hpricot(fileContent)
 
          textoAdjudicacion=(doc/"//*[@id=\"label0\"]").inner_text
