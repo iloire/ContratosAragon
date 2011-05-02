@@ -12,7 +12,18 @@
     <header>
 		<h1><a href="/">ContratosAragon</a></h1>
     </header>
+
 	    <div id="main" role="main">
+		<div id=search>
+			<form action="/Contracts/BusquedaPorEmpresa" method="get">
+				<input name="empresa" type="text" value="<%=params[:empresa]%>">
+				<input type=submit value="buscar por empresa">
+			</form>
+			<form action="/Contracts/BusquedaPorOrganismo" method="get">
+				<input name="organismo" type="text" value="<%=params[:organismo]%>">
+				<input type=submit value="buscar por organismo">
+			</form>
+		</div>
 			<%= yield %>	
 	    </div>
     <footer>
