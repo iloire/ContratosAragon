@@ -95,6 +95,8 @@ namespace :db do
              success=false
            end
            fechapublicacionanuncio=maxlen(fechapublicacionanuncio,maxsize)
+           fecharesolucion=doc.at("//label[text()*='Resolución']").parent.parent.children[3].children[1].inner_text
+           puts fecharesolucion
 
            #presupuestos  
            presupuestoBase=doc.at("//label[text()*='Presupuesto base de licitación']").parent.parent.children[3].children[1].inner_text            
@@ -102,7 +104,6 @@ namespace :db do
 
            presupuestoAdj=doc.at("//label[text()*='Importe de adjudicación']").parent.parent.children[3].children[1].inner_text   
            presupuestoAdj=maxlen(presupuestoAdj,maxsize)
-
 
            Contract.create!(    
            :title => titulo, 
@@ -116,7 +117,7 @@ namespace :db do
            :company_name=> empresa, 
            :department=> organismo, 
            :signed_by=> firmado, 
-           :resolution_date=> fechapublicacionanuncio)
+           :resolution_date=> fecharesolucion)
            
             puts "   definitiva #{id}!"
         else
