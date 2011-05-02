@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ContratosAragon</title>
+  <title>Contratos públicos en Aragón</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 
   <div id="container">
     <header>
-		<h1><a href="/">ContratosAragon</a></h1>
+		<h1><a href="/">Contratos públicos en Aragón</a></h1>
     </header>
 
 	    <div id="main" role="main">
 		<div id=search>
 			<form action="/Contracts/BusquedaPorEmpresa" method="get">
-				<input name="empresa" type="text" value="<%=params[:empresa]%>">
+				<input name="empresa" type="text" size="50" value="<%=params[:empresa]%>">
 				<input type=submit value="buscar por empresa">
 			</form>
 			<form action="/Contracts/BusquedaPorOrganismo" method="get">
-				<input name="organismo" type="text" value="<%=params[:organismo]%>">
+				<input name="organismo" type="text" size="50" value="<%=params[:organismo]%>">
 				<input type=submit value="buscar por organismo">
 			</form>
 		</div>
