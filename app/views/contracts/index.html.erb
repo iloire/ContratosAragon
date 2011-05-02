@@ -58,7 +58,11 @@
 			<%= contract.company_name %>
 		</a>
 	</td>
-    <td><%= contract.department %></td>
+    <td>
+			<a href="/Contracts/BusquedaPorOrganismo?organismo=<%= contract.department %>">
+				<%= contract.department %>
+			</a>
+    </td>
 	<!--
     <td><%= contract.signed_by %></td>
 	-->
